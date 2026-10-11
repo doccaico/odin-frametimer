@@ -1,19 +1,16 @@
 // Bindings for [[ frametimer.h ; https://github.com/mattiasgustavsson/libs/blob/main/frametimer.h ]].
+
 package frametimer
 
 import "core:c"
 
 @(private)
-LIB :: "lib/frametimer.lib" when ODIN_OS == .Windows else ""
+LIB :: "lib/frametimer.lib" when ODIN_OS == .Windows else #panic("Sorry, Your OS is unsupported")
 
-when LIB == "" {
-	#panic("Sorry, Your OS is unsupported")
-}
-foreign import lib {LIB when LIB != "" else "system:frametimer"}
+foreign import lib {LIB}
 
-Frametimer :: struct {}
 // Frametimer :: distinct rawptr
-
+Frametimer :: struct {}
 
 @(default_calling_convention = "c", link_prefix = "frametimer_")
 foreign lib {
